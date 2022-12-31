@@ -1,0 +1,29 @@
+import jwt from "jsonwebtoken";
+const token =
+  "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1YTZwdWdoTG9ndzlSVjVIOHd3MTZNUWZFWVF4ZU5Damt5UzRGTm5jMHhJIn0.eyJleHAiOjE2NzI0NDk0MDQsImlhdCI6MTY3MjQ0OTEwNCwianRpIjoiMjBmZTIzYjAtNDg5Zi00MTAzLWFkZjgtZWU4NjExM2MyZjNiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDg1L3JlYWxtcy90ZXN0LXJlYWxtIiwiYXVkIjpbImFjY291bnQiLCJmcm9udGVuZCJdLCJzdWIiOiI3NjEwZmVjNi0zNzUyLTRmOTUtYmUzZC03ZWU2MmY0NjYwYWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJiYWNrZW5kIiwic2Vzc2lvbl9zdGF0ZSI6IjcxNTdjYWE4LTY2ZjQtNDc5Ny1iOWFiLTg0NWNjNzVhODQwOSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy10ZXN0LXJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImJhY2tlbmQiOnsicm9sZXMiOlsiamltYm9iX3JvbGUiLCJiYWNrZW5kLXJvbGUiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfSwiZnJvbnRlbmQiOnsicm9sZXMiOlsiZnJvbnRlbmQtcm9sZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjcxNTdjYWE4LTY2ZjQtNDc5Ny1iOWFiLTg0NWNjNzVhODQwOSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlcl9oaWdoIiwiZ2l2ZW5fbmFtZSI6IiIsImZyb250ZW5kX2NsaWVudF9yb2xlcyI6WyJmcm9udGVuZC1yb2xlIl0sImZhbWlseV9uYW1lIjoiIn0.SHJJwTR73p8ARWImAodnSK9qjeeOSDP5_SP2mh8P3NO6e75jxlgnd_IFL_h_A2BNrSV01FtFmlAObc2dEQud_5gM8ZL2OkPgdF_q3v5NW2665VbdipSOgAv9lPiqKh-SqcWgLZzrGzX7qs1FJ-YqajJTbFjkCXxeri_TP7hfEjg7Pb5cDiIWwow0skXTUsINjiC32RE-Ez6EwVzAavsnCToSIubjggjDLXwWO2yi-30xJLsXC-RI52-TtJeUmaowRJ7y8fOXdVFL83aienwLXKSH7mqhLvsRSvODQ6SzLMAKoUX4YMvhJlI3pW-VmTey4JxPsY3NbLUJkkWU_1jrZw";
+
+const public_key = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvkmMj+x8Tp1TIyiAGFqp
+Yyul3MkJiIcy1CP2drIFhYQJhamwAwOC/NFh4nyZdb7qWz6m07Oygvicr598DL00
+vHIUeq6G0Yd29SVO32JWnq92ax/4Wo8+QbHJri6xI1oPy6sZMxpv5rdNyitbJoLI
+f4ESEevvlh6uKxzlQqLnT6Yn9U6E2bo5YYpqioZVec/gnlcR4zQAQimCqyMySDIR
+I+XtQ9bN4DDjVqPbs5k8K9M/V7MHmCJNgH1xjL+MyZFn6gl8XpBAzXT/7VTThFbN
++70ifxhthP8FqoS+kgInpfMSIxnjeyb18SVik7hfKZYFJz6un5Cu7/MWJVjByVLM
+QQIDAQAB
+-----END PUBLIC KEY-----`;
+
+const header = jwt.decode(token, { complete: true }).header;
+console.log(header);
+
+jwt.verify(
+  token,
+  public_key,
+  { algorithms: ["RS256", "HS256"] },
+  (err, payload) => {
+    if (err) {
+      console.log("not a valid payload", err);
+      return;
+    }
+    console.log("payload", payload);
+  }
+);
